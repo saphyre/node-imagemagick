@@ -1,4 +1,4 @@
-{ "name"        : "imagemagick"
+{ "name"        : "saphyre-imagemagick"
 , "description" : "A wrapper around the imagemagick cli"
 , "version"     : "0.1.3"
 , "author"      : "Rasmus Andersson <http://rsms.me/>"

@@ -1,3 +1,6 @@
+Since the repository is not maintained anymore, the file is copied to saphyre project with some changes
+Original: https://github.com/rsms/node-imagemagick
+
 # node-imagemagick
 
 **This is an abandoned version. Please see [@yourdeveloper/node-imagemagick](https://github.com/yourdeveloper/node-imagemagick) for the currently maintained version**
