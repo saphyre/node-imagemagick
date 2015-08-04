@@ -4,11 +4,11 @@ var childproc = require('child_process'),
 
 function exec2(file, args /*, options, callback */) {
   var options = { encoding: 'utf8'
-                , timeout: 0
-                , maxBuffer: 500*1024
-                , killSignal: 'SIGKILL'
-                , output: null
-                };
+    , timeout: 0
+    , maxBuffer: 500*1024
+    , killSignal: 'SIGKILL'
+    , output: null
+  };
 
   var callback = arguments[arguments.length-1];
   if ('function' != typeof callback) callback = null;
@@ -181,7 +181,7 @@ function ExifDate(value) {
   // YYYY:MM:DD HH:MM:SS -> Date(YYYY-MM-DD HH:MM:SS +0000)
   value = value.split(/ /);
   return new Date(value[0].replace(/:/g, '-')+' '+
-    value[1]+' +0000');
+      value[1]+' +0000');
 }
 
 function exifKeyName(k) {
@@ -280,7 +280,7 @@ exports.crop = function (options, callback) {
     throw new TypeError("No srcPath or data defined");
   if (!options.height && !options.width)
     throw new TypeError("No width or height defined");
-  
+
   if (options.srcPath){
     var args = options.srcPath;
   } else {
@@ -297,7 +297,6 @@ exports.crop = function (options, callback) {
         args      = [];
     t.args.forEach(function (arg) {
       if (printNext === true){
-        console.log("arg", arg);
         printNext = false;
       }
       // ignoreArg is set when resize flag was found
@@ -305,12 +304,10 @@ exports.crop = function (options, callback) {
         args.push(arg);
       // found resize flag! ignore the next argument
       if (arg == '-resize'){
-        console.log("resize arg");
         ignoreArg = true;
         printNext = true;
       }
       if (arg === "-crop"){
-        console.log("crop arg");
         printNext = true;
       }
       // found the argument after the resize flag; ignore it and set crop options
@@ -350,7 +347,8 @@ exports.resizeArgs = function(options) {
     filter: 'Lagrange',
     sharpening: 0.2,
     customArgs: [],
-    timeout: 0
+    timeout: 0,
+    background: 'none'
   }
 
   // check options
@@ -376,6 +374,12 @@ exports.resizeArgs = function(options) {
     args = args.concat([
       '-set', 'option:filter:blur', String(1.0-opt.sharpening)]);
   }
+
+  if (opt.background) { // Needs to be added _before_ input file
+    args.push('-background');
+    args.push(opt.background);
+  }
+
   if (opt.filter) {
     args.push('-filter');
     args.push(opt.filter);
